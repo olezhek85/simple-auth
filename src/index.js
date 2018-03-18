@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import { reducer as formReducer } from "redux-form";
+import thunk from "redux-thunk";
 
 import "./index.css";
 import App from "./App";
@@ -20,7 +21,10 @@ const rootReducer = combineReducers({
   form: formReducer
 });
 
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware()));
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
 
 const app = (
   <Provider store={store}>

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 
 import Layout from "./hoc/Layout";
-import Signin from "./components/Auth/Signin";
+import Signin from "./containers/Auth/Signin";
 
 class App extends Component {
   render() {

@@ -1,5 +1,8 @@
 import React, { Component, Fragment } from "react";
 import { Field, reduxForm } from "redux-form";
+import { connect } from "react-redux";
+
+import * as actions from "../../store/actions";
 
 const renderInput = field => (
   <Fragment>
@@ -18,6 +21,7 @@ const renderInput = field => (
 class Signin extends Component {
   handleFormSubmit = ({ email, password }) => {
     console.log(email, password);
+    this.props.onSigninUser(email, password);
   };
 
   render() {
@@ -65,6 +69,16 @@ class Signin extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSigninUser: (email, password) => {
+      dispatch(actions.signinUser(email, password));
+    }
+  };
+};
+
+Signin = connect(null, mapDispatchToProps)(Signin);
 
 export default reduxForm({
   form: "signin"
