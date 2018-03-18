@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
+import { reducer as formReducer } from "redux-form";
 
 import "./index.css";
 import App from "./App";
@@ -15,7 +16,8 @@ const composeEnhancers =
     : null || compose;
 
 const rootReducer = combineReducers({
-  auth: authReducer
+  auth: authReducer,
+  form: formReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware()));
