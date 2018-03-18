@@ -1,9 +1,10 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const header = props => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a className="navbar-brand" href="#">
+      <a className="navbar-brand" href="/">
         Simple App
       </a>
       <button
@@ -18,29 +19,21 @@ const header = props => {
         <span className="navbar-toggler-icon" />
       </button>
       <div className="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul className="navbar-nav mr-auto" />
-        <ul className="navbar-nav">
-          <li className="nav-item active">
-            <a className="nav-link" href="#">
-              Home <span className="sr-only">(current)</span>
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              Sign in
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              Sign up
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              Sign out
-            </a>
-          </li>
-        </ul>
+        <div className="navbar-nav mr-auto" />
+        <div className="navbar-nav">
+          <NavLink exact to="/" className="nav-item nav-link">
+            Home
+          </NavLink>
+          <NavLink to="/signin" className="nav-item nav-link">
+            Sign in
+          </NavLink>
+          <NavLink to="/signup" className="nav-item nav-link">
+            Sign up
+          </NavLink>
+          <NavLink to="/signout" className="nav-item nav-link">
+            Sign out
+          </NavLink>
+        </div>
       </div>
     </nav>
   );
