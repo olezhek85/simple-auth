@@ -27,6 +27,16 @@ class Signin extends Component {
   render() {
     const { handleSubmit } = this.props;
 
+    let errorMessage = null;
+
+    if (this.props.error) {
+      errorMessage = (
+        <div className="alert alert-danger" role="alert">
+          <strong>Oops!</strong> {this.props.error.message}
+        </div>
+      );
+    }
+
     return (
       <div className="row">
         <div className="col-md-12">
@@ -45,7 +55,7 @@ class Signin extends Component {
                     autoFocus
                   />
                   <small className="form-text text-muted">
-                    We'll never share your email with anyone else.
+                    {"We'll never share your email with anyone else."}
                   </small>
                 </div>
                 <div className="form-group">
@@ -58,6 +68,7 @@ class Signin extends Component {
                     placeholder="Password"
                   />
                 </div>
+                {errorMessage}
                 <button type="submit" className="btn btn-primary float-right">
                   Sign in
                 </button>
@@ -70,6 +81,12 @@ class Signin extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    error: state.auth.error
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     onSigninUser: (email, password) => {
@@ -78,7 +95,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-Signin = connect(null, mapDispatchToProps)(Signin);
+Signin = connect(mapStateToProps, mapDispatchToProps)(Signin);
 
 export default reduxForm({
   form: "signin"
