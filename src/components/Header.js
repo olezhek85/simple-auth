@@ -24,15 +24,21 @@ const header = props => {
           <NavLink exact to="/" className="nav-item nav-link">
             Home
           </NavLink>
-          <NavLink to="/signin" className="nav-item nav-link">
-            Sign in
-          </NavLink>
-          <NavLink to="/signup" className="nav-item nav-link">
-            Sign up
-          </NavLink>
-          <NavLink to="/signout" className="nav-item nav-link">
-            Sign out
-          </NavLink>
+          {!props.isAuth && (
+            <NavLink to="/signin" className="nav-item nav-link">
+              Sign in
+            </NavLink>
+          )}
+          {!props.isAuth && (
+            <NavLink to="/signup" className="nav-item nav-link">
+              Sign up
+            </NavLink>
+          )}
+          {props.isAuth && (
+            <NavLink to="/signout" className="nav-item nav-link">
+              Sign out
+            </NavLink>
+          )}
         </div>
       </div>
     </nav>
