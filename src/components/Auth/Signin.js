@@ -8,6 +8,7 @@ const renderInput = field => (
       type={field.type}
       className={field.className}
       placeholder={field.placeholder}
+      autoFocus={field.autoFocus}
     />
     {field.meta.touched &&
       field.meta.error && <span className="error">{field.meta.error}</span>}
@@ -37,6 +38,7 @@ class Signin extends Component {
                     type="text"
                     className="form-control"
                     placeholder="Enter email"
+                    autoFocus
                   />
                   <small className="form-text text-muted">
                     We'll never share your email with anyone else.
