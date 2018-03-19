@@ -1,11 +1,11 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { NavLink } from "react-router-dom";
 
 const header = props => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <a className="navbar-brand" href="/">
-        Simple App
+        Redux Auth
       </a>
       <button
         className="navbar-toggler"
@@ -24,20 +24,19 @@ const header = props => {
           <NavLink exact to="/" className="nav-item nav-link">
             Home
           </NavLink>
-          {!props.isAuth && (
-            <NavLink to="/signin" className="nav-item nav-link">
-              Sign in
-            </NavLink>
-          )}
-          {!props.isAuth && (
-            <NavLink to="/signup" className="nav-item nav-link">
-              Sign up
-            </NavLink>
-          )}
-          {props.isAuth && (
+          {props.isAuth ? (
             <NavLink to="/signout" className="nav-item nav-link">
               Sign out
             </NavLink>
+          ) : (
+            <Fragment>
+              <NavLink to="/signin" className="nav-item nav-link">
+                Sign In
+              </NavLink>
+              <NavLink to="/signup" className="nav-item nav-link">
+                Sign Up
+              </NavLink>
+            </Fragment>
           )}
         </div>
       </div>
