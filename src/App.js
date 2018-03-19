@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 import Layout from "./hoc/Layout";
 import Signin from "./containers/Auth/Signin";
+import Signout from "./containers/Auth/Signout";
 
 class App extends Component {
   render() {
@@ -23,7 +24,7 @@ class App extends Component {
     if (this.props.isAuthenticated) {
       routes = (
         <Switch>
-          <Route path="/signout" render={() => <p>Sign out</p>} />
+          <Route path="/signout" component={Signout} />
           <Route
             path="/"
             exact
