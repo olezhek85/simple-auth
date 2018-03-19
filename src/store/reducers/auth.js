@@ -19,6 +19,17 @@ const reducer = (state = initialState, action) => {
         authenticated: false,
         error: action.error
       };
+    case actionTypes.SIGNOUT_USER_START:
+      return { ...state, loading: true };
+    case actionTypes.SIGNOUT_USER_SUCCESS:
+      return { ...state, loading: false, authenticated: false };
+    case actionTypes.SIGNOUT_USER_FAIL:
+      return {
+        ...state,
+        loading: false,
+        authenticated: false,
+        error: action.error
+      };
     default:
       return state;
   }
