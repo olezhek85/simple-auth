@@ -18,10 +18,10 @@ const renderInput = field => (
   </Fragment>
 );
 
-class Signin extends Component {
+class Signup extends Component {
   handleFormSubmit = ({ email, password }) => {
     console.log(email, password);
-    this.props.onSigninUser(email, password);
+    this.props.onSignupUser(email, password);
   };
 
   render() {
@@ -40,7 +40,7 @@ class Signin extends Component {
     return (
       <div className="row">
         <div className="col-md-12">
-          <h3 className="text-center mt-1">Sign in</h3>
+          <h3 className="text-center mt-1">Sign up</h3>
           <div className="row">
             <div className="col-md-6 mx-auto">
               <form onSubmit={handleSubmit(this.handleFormSubmit)}>
@@ -54,6 +54,9 @@ class Signin extends Component {
                     placeholder="Enter email"
                     autoFocus
                   />
+                  <small className="form-text text-muted">
+                    {"We'll never share your email with anyone else."}
+                  </small>
                 </div>
                 <div className="form-group">
                   <label htmlFor="password">Password</label>
@@ -65,9 +68,19 @@ class Signin extends Component {
                     placeholder="Password"
                   />
                 </div>
+                <div className="form-group">
+                  <label htmlFor="passwordConfirm">Confirm Password</label>
+                  <Field
+                    name="passwordConfirm"
+                    component={renderInput}
+                    type="password"
+                    className="form-control"
+                    placeholder="Confirm Password"
+                  />
+                </div>
                 {errorMessage}
                 <button type="submit" className="btn btn-primary float-right">
-                  Sign in
+                  Sign up!
                 </button>
               </form>
             </div>
@@ -86,14 +99,14 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSigninUser: (email, password) => {
-      dispatch(actions.signinUser(email, password));
+    onSignupUser: (email, password) => {
+      dispatch(actions.signupUser(email, password));
     }
   };
 };
 
-Signin = connect(mapStateToProps, mapDispatchToProps)(Signin);
+Signup = connect(mapStateToProps, mapDispatchToProps)(Signup);
 
 export default reduxForm({
-  form: "signin"
-})(Signin);
+  form: "signup"
+})(Signup);

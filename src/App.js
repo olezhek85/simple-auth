@@ -5,13 +5,14 @@ import { connect } from "react-redux";
 import Layout from "./hoc/Layout";
 import Signin from "./containers/Auth/Signin";
 import Signout from "./containers/Auth/Signout";
+import Signup from "./containers/Auth/Signup";
 
 class App extends Component {
   render() {
     let routes = (
       <Switch>
         <Route path="/signin" component={Signin} />
-        <Route path="/signup" render={() => <p>Sign up</p>} />
+        <Route path="/signup" component={Signup} />
         <Route path="/signout" component={Signout} />
         <Route
           path="/"
