@@ -14,14 +14,16 @@ const renderInput = field => (
       autoFocus={field.autoFocus}
     />
     {field.meta.touched &&
-      field.meta.error && <span className="error">{field.meta.error}</span>}
+      field.meta.error && (
+        <span className="text-danger">{field.meta.error}</span>
+      )}
   </Fragment>
 );
 
 class Signup extends Component {
   handleFormSubmit = ({ email, password }) => {
     console.log(email, password);
-    this.props.onSignupUser(email, password);
+    // this.props.onSignupUser(email, password);
   };
 
   render() {
@@ -54,9 +56,6 @@ class Signup extends Component {
                     placeholder="Enter email"
                     autoFocus
                   />
-                  <small className="form-text text-muted">
-                    {"We'll never share your email with anyone else."}
-                  </small>
                 </div>
                 <div className="form-group">
                   <label htmlFor="password">Password</label>
@@ -97,16 +96,25 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onSignupUser: (email, password) => {
-      dispatch(actions.signupUser(email, password));
-    }
-  };
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     onSignupUser: (email, password) => {
+//       dispatch(actions.signupUser(email, password));
+//     }
+//   };
+// };
+
+Signup = connect(mapStateToProps)(Signup);
+
+const validate = values => {
+  const errors = {};
+  if (values.password !== values.passwordConfirm) {
+    errors.password = "Passwords must match";
+  }
+  return errors;
 };
 
-Signup = connect(mapStateToProps, mapDispatchToProps)(Signup);
-
 export default reduxForm({
-  form: "signup"
+  form: "signup",
+  validate
 })(Signup);
