@@ -7,6 +7,7 @@ import Signin from "./containers/Auth/Signin";
 import Signout from "./containers/Auth/Signout";
 import Signup from "./containers/Auth/Signup";
 import Feature from "./components/Feature";
+import Welcome from "./components/Welcome";
 
 class App extends Component {
   render() {
@@ -15,11 +16,7 @@ class App extends Component {
         <Route path="/signin" component={Signin} />
         <Route path="/signup" component={Signup} />
         <Route path="/signout" component={Signout} />
-        <Route
-          path="/"
-          exact
-          render={() => <h5 className="text-center mt-2">Welcome to React</h5>}
-        />
+        <Route path="/" exact component={Welcome} />
         <Redirect to="/" />
       </Switch>
     );
@@ -29,13 +26,7 @@ class App extends Component {
         <Switch>
           <Route path="/feature" component={Feature} />
           <Route path="/signout" component={Signout} />
-          <Route
-            path="/"
-            exact
-            render={() => (
-              <h5 className="text-center mt-2">Welcome to React</h5>
-            )}
-          />
+          <Route path="/" exact component={Welcome} />
           <Redirect to="/" />
         </Switch>
       );
