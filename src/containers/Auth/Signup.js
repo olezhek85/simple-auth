@@ -51,7 +51,7 @@ class Signup extends Component {
     if (this.props.error) {
       errorMessage = (
         <div className="alert alert-danger" role="alert">
-          <strong>Oops!</strong> {this.props.error.message}
+          <strong>Oops!</strong> {this.props.error}
         </div>
       );
     }

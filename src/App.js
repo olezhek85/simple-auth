@@ -9,7 +9,13 @@ import Signup from "./containers/Auth/Signup";
 import Feature from "./components/Feature";
 import Welcome from "./components/Welcome";
 
+import * as actions from "./store/actions";
+
 class App extends Component {
+  componentDidMount() {
+    this.props.onTryAutoSignup();
+  }
+
   render() {
     let routes = (
       <Switch>
@@ -42,4 +48,10 @@ const mapStateToProps = state => {
   };
 };
 
-export default withRouter(connect(mapStateToProps)(App));
+const mapDispatchToProps = dispatch => {
+  return {
+    onTryAutoSignup: () => dispatch(actions.authCheckState())
+  };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

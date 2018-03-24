@@ -24,6 +24,7 @@ export const signoutUser = () => {
     dispatch(signoutUserStart());
     try {
       sessionStorage.removeItem("token");
+      sessionStorage.removeItem("expirationDate");
       dispatch(signoutUserSuccess());
     } catch (error) {
       dispatch(signoutUserFail(error));
