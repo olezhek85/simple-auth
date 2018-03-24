@@ -20,7 +20,6 @@ const renderInput = field => (
 
 class Signin extends Component {
   handleFormSubmit = ({ email, password }) => {
-    console.log(email, password);
     this.props.onSigninUser(email, password);
   };
 

@@ -11,7 +11,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.SIGNIN_USER_START:
       return { ...state, loading: true };
     case actionTypes.SIGNIN_USER_SUCCESS:
-      return { ...state, loading: false, authenticated: true };
+      return { ...state, loading: false, authenticated: true, error: null };
     case actionTypes.SIGNIN_USER_FAIL:
       return {
         ...state,
@@ -22,8 +22,19 @@ const reducer = (state = initialState, action) => {
     case actionTypes.SIGNOUT_USER_START:
       return { ...state, loading: true };
     case actionTypes.SIGNOUT_USER_SUCCESS:
-      return { ...state, loading: false, authenticated: false };
+      return { ...state, loading: false, authenticated: false, error: null };
     case actionTypes.SIGNOUT_USER_FAIL:
+      return {
+        ...state,
+        loading: false,
+        authenticated: false,
+        error: action.error
+      };
+    case actionTypes.SIGNUP_USER_START:
+      return { ...state, loading: true };
+    case actionTypes.SIGNUP_USER_SUCCESS:
+      return { ...state, loading: false, authenticated: true, error: null };
+    case actionTypes.SIGNUP_USER_FAIL:
       return {
         ...state,
         loading: false,

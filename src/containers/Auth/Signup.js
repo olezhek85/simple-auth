@@ -40,8 +40,7 @@ const renderInput = ({
 
 class Signup extends Component {
   handleFormSubmit = ({ email, password }) => {
-    console.log(email, password);
-    // this.props.onSignupUser(email, password);
+    this.props.onSignupUser(email, password);
   };
 
   render() {
@@ -108,15 +107,15 @@ const mapStateToProps = state => {
   };
 };
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     onSignupUser: (email, password) => {
-//       dispatch(actions.signupUser(email, password));
-//     }
-//   };
-// };
+const mapDispatchToProps = dispatch => {
+  return {
+    onSignupUser: (email, password) => {
+      dispatch(actions.signupUser(email, password));
+    }
+  };
+};
 
-Signup = connect(mapStateToProps)(Signup);
+Signup = connect(mapStateToProps, mapDispatchToProps)(Signup);
 
 const validate = values => {
   const errors = {};
