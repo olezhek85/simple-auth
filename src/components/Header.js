@@ -25,9 +25,14 @@ const header = props => {
             Home
           </NavLink>
           {props.isAuth ? (
-            <NavLink to="/signout" className="nav-item nav-link">
-              Sign out
-            </NavLink>
+            <Fragment>
+              <NavLink exact to="/feature" className="nav-item nav-link">
+                Feature
+              </NavLink>
+              <NavLink to="/signout" className="nav-item nav-link">
+                Sign out
+              </NavLink>
+            </Fragment>
           ) : (
             <Fragment>
               <NavLink to="/signin" className="nav-item nav-link">

@@ -6,6 +6,7 @@ import Layout from "./hoc/Layout";
 import Signin from "./containers/Auth/Signin";
 import Signout from "./containers/Auth/Signout";
 import Signup from "./containers/Auth/Signup";
+import Feature from "./components/Feature";
 
 class App extends Component {
   render() {
@@ -26,6 +27,7 @@ class App extends Component {
     if (this.props.isAuthenticated) {
       routes = (
         <Switch>
+          <Route path="/feature" component={Feature} />
           <Route path="/signout" component={Signout} />
           <Route
             path="/"
