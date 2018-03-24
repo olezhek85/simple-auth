@@ -1,24 +1,42 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 
 import * as actions from "../../store/actions";
 
-const renderInput = field => (
-  <Fragment>
-    <input
-      {...field.input}
-      type={field.type}
-      className={field.className}
-      placeholder={field.placeholder}
-      autoFocus={field.autoFocus}
-    />
-    {field.meta.touched &&
-      field.meta.error && (
-        <span className="text-danger">{field.meta.error}</span>
-      )}
-  </Fragment>
-);
+const renderInput = ({
+  input,
+  label,
+  type,
+  className,
+  placeholder,
+  autoFocus,
+  meta: { touched, error }
+}) => {
+  const classes = [];
+  classes.push(className);
+
+  let validationMessage = null;
+
+  if (touched && error) {
+    classes.push("is-invalid");
+    validationMessage = <div className="invalid-feedback">{error}</div>;
+  }
+
+  return (
+    <div className="form-group">
+      <label htmlFor={input.name}>{label}</label>
+      <input
+        {...input}
+        type={type}
+        className={classes.join(" ")}
+        placeholder={placeholder}
+        autoFocus={autoFocus}
+      />
+      {validationMessage}
+    </div>
+  );
+};
 
 class Signup extends Component {
   handleFormSubmit = ({ email, password }) => {
@@ -46,37 +64,31 @@ class Signup extends Component {
           <div className="row">
             <div className="col-md-6 mx-auto">
               <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-                <div className="form-group">
-                  <label htmlFor="email">Email address</label>
-                  <Field
-                    name="email"
-                    component={renderInput}
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter email"
-                    autoFocus
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="password">Password</label>
-                  <Field
-                    name="password"
-                    component={renderInput}
-                    type="password"
-                    className="form-control"
-                    placeholder="Password"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="passwordConfirm">Confirm Password</label>
-                  <Field
-                    name="passwordConfirm"
-                    component={renderInput}
-                    type="password"
-                    className="form-control"
-                    placeholder="Confirm Password"
-                  />
-                </div>
+                <Field
+                  name="email"
+                  label="Email address"
+                  component={renderInput}
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter email"
+                  autoFocus
+                />
+                <Field
+                  name="password"
+                  label="Password"
+                  component={renderInput}
+                  type="password"
+                  className="form-control"
+                  placeholder="Password"
+                />
+                <Field
+                  name="passwordConfirm"
+                  label="Confirm Password"
+                  component={renderInput}
+                  type="password"
+                  className="form-control"
+                  placeholder="Confirm Password"
+                />
                 {errorMessage}
                 <button type="submit" className="btn btn-primary float-right">
                   Sign up!
@@ -108,6 +120,20 @@ Signup = connect(mapStateToProps)(Signup);
 
 const validate = values => {
   const errors = {};
+  if (!values.email) {
+    errors.email = "Please enter an email";
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = "Please enter a valid email address";
+  }
+
+  if (!values.password) {
+    errors.password = "Please enter a password";
+  }
+
+  if (!values.passwordConfirm) {
+    errors.passwordConfirm = "Please enter a password confirmation";
+  }
+
   if (values.password !== values.passwordConfirm) {
     errors.password = "Passwords must match";
   }
