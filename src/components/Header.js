@@ -1,6 +1,8 @@
 import React, { Fragment } from "react";
 import { NavLink } from "react-router-dom";
 
+import { AuthContext } from "../App";
+
 const header = props => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -24,25 +26,29 @@ const header = props => {
           <NavLink exact to="/" className="nav-item nav-link">
             Home
           </NavLink>
-          {props.isAuth ? (
-            <Fragment>
-              <NavLink exact to="/feature" className="nav-item nav-link">
-                Feature
-              </NavLink>
-              <NavLink to="/signout" className="nav-item nav-link">
-                Sign out
-              </NavLink>
-            </Fragment>
-          ) : (
-            <Fragment>
-              <NavLink to="/signin" className="nav-item nav-link">
-                Sign In
-              </NavLink>
-              <NavLink to="/signup" className="nav-item nav-link">
-                Sign Up
-              </NavLink>
-            </Fragment>
-          )}
+          <AuthContext.Consumer>
+            {auth =>
+              auth ? (
+                <Fragment>
+                  <NavLink exact to="/feature" className="nav-item nav-link">
+                    Feature
+                  </NavLink>
+                  <NavLink to="/signout" className="nav-item nav-link">
+                    Sign out
+                  </NavLink>
+                </Fragment>
+              ) : (
+                <Fragment>
+                  <NavLink to="/signin" className="nav-item nav-link">
+                    Sign In
+                  </NavLink>
+                  <NavLink to="/signup" className="nav-item nav-link">
+                    Sign Up
+                  </NavLink>
+                </Fragment>
+              )
+            }
+          </AuthContext.Consumer>
         </div>
       </div>
     </nav>

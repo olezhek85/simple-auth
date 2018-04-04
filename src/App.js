@@ -11,6 +11,8 @@ import Welcome from "./components/Welcome";
 
 import * as actions from "./store/actions";
 
+export const AuthContext = React.createContext(false);
+
 class App extends Component {
   componentDidMount() {
     this.props.onTryAutoSignup();
@@ -38,7 +40,11 @@ class App extends Component {
       );
     }
 
-    return <Layout isAuth={this.props.isAuthenticated}>{routes}</Layout>;
+    return (
+      <AuthContext.Provider value={this.props.isAuthenticated}>
+        <Layout>{routes}</Layout>
+      </AuthContext.Provider>
+    );
   }
 }
 

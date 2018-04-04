@@ -14,7 +14,7 @@ export const validate = values => {
     errors.passwordConfirm = "Please enter a password confirmation";
   }
 
-  if (values.password !== values.passwordConfirm) {
+  if (values.passwordConfirm && values.password !== values.passwordConfirm) {
     errors.password = "Passwords must match";
   }
   return errors;
