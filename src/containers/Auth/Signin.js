@@ -1,24 +1,18 @@
-import React, { Component, Fragment } from "react";
-import { Field, reduxForm } from "redux-form";
+import React, { Component } from "react";
+import { reduxForm } from "redux-form";
 import { connect } from "react-redux";
 
 import * as actions from "../../store/actions";
-
-const renderInput = field => (
-  <Fragment>
-    <input
-      {...field.input}
-      type={field.type}
-      className={field.className}
-      placeholder={field.placeholder}
-      autoFocus={field.autoFocus}
-    />
-    {field.meta.touched &&
-      field.meta.error && <span className="error">{field.meta.error}</span>}
-  </Fragment>
-);
+import InputField from "../../components/UI/InputField";
+import { validate } from "../../utils/validate";
 
 class Signin extends Component {
+  componentDidMount() {
+    this.inputRef.current.focus();
+  }
+
+  inputRef = React.createRef();
+
   handleFormSubmit = ({ email, password }) => {
     this.props.onSigninUser(email, password);
   };
@@ -43,27 +37,19 @@ class Signin extends Component {
           <div className="row">
             <div className="col-md-6 mx-auto">
               <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-                <div className="form-group">
-                  <label htmlFor="email">Email address</label>
-                  <Field
-                    name="email"
-                    component={renderInput}
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter email"
-                    autoFocus
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="password">Password</label>
-                  <Field
-                    name="password"
-                    component={renderInput}
-                    type="password"
-                    className="form-control"
-                    placeholder="Password"
-                  />
-                </div>
+                <InputField
+                  name="email"
+                  label="Email address"
+                  type="text"
+                  placeholder="Enter email"
+                  ref={this.inputRef}
+                />
+                <InputField
+                  name="password"
+                  label="Password"
+                  type="password"
+                  placeholder="Password"
+                />
                 {errorMessage}
                 <button type="submit" className="btn btn-primary float-right">
                   Sign in
@@ -94,5 +80,6 @@ const mapDispatchToProps = dispatch => {
 Signin = connect(mapStateToProps, mapDispatchToProps)(Signin);
 
 export default reduxForm({
-  form: "signin"
+  form: "signin",
+  validate
 })(Signin);
