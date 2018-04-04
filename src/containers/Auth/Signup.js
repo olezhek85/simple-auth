@@ -1,44 +1,17 @@
 import React, { Component } from "react";
-import { Field, reduxForm } from "redux-form";
+import { reduxForm } from "redux-form";
 import { connect } from "react-redux";
 
 import * as actions from "../../store/actions";
-
-const renderInput = ({
-  input,
-  label,
-  type,
-  className,
-  placeholder,
-  autoFocus,
-  meta: { touched, error }
-}) => {
-  const classes = [];
-  classes.push(className);
-
-  let validationMessage = null;
-
-  if (touched && error) {
-    classes.push("is-invalid");
-    validationMessage = <div className="invalid-feedback">{error}</div>;
-  }
-
-  return (
-    <div className="form-group">
-      <label htmlFor={input.name}>{label}</label>
-      <input
-        {...input}
-        type={type}
-        className={classes.join(" ")}
-        placeholder={placeholder}
-        autoFocus={autoFocus}
-      />
-      {validationMessage}
-    </div>
-  );
-};
+import InputField from "../../components/UI/InputField";
 
 class Signup extends Component {
+  componentDidMount() {
+    this.inputRef.current.focus();
+  }
+
+  inputRef = React.createRef();
+
   handleFormSubmit = ({ email, password }) => {
     this.props.onSignupUser(email, password);
   };
@@ -63,29 +36,23 @@ class Signup extends Component {
           <div className="row">
             <div className="col-md-6 mx-auto">
               <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-                <Field
+                <InputField
                   name="email"
                   label="Email address"
-                  component={renderInput}
                   type="text"
-                  className="form-control"
                   placeholder="Enter email"
-                  autoFocus
+                  ref={this.inputRef}
                 />
-                <Field
+                <InputField
                   name="password"
                   label="Password"
-                  component={renderInput}
                   type="password"
-                  className="form-control"
                   placeholder="Password"
                 />
-                <Field
+                <InputField
                   name="passwordConfirm"
                   label="Confirm Password"
-                  component={renderInput}
                   type="password"
-                  className="form-control"
                   placeholder="Confirm Password"
                 />
                 {errorMessage}
