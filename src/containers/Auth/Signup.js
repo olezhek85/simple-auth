@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions";
 import InputField from "../../components/UI/InputField";
 import { validate } from "../../utils/validate";
+import Spinner from "../../components/UI/Spinner";
 
 class Signup extends Component {
   componentDidMount() {
@@ -31,38 +32,44 @@ class Signup extends Component {
       );
     }
 
+    let form = (
+      <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+        <InputField
+          name="email"
+          label="Email address"
+          type="text"
+          placeholder="Enter email"
+          ref={this.inputRef}
+        />
+        <InputField
+          name="password"
+          label="Password"
+          type="password"
+          placeholder="Password"
+        />
+        <InputField
+          name="passwordConfirm"
+          label="Confirm Password"
+          type="password"
+          placeholder="Confirm Password"
+        />
+        {errorMessage}
+        <button type="submit" className="btn btn-primary float-right">
+          Sign up!
+        </button>
+      </form>
+    );
+
+    if (this.props.loading) {
+      form = <Spinner />;
+    }
+
     return (
       <div className="row">
         <div className="col-md-12">
           <h3 className="text-center mt-1">Sign up</h3>
           <div className="row">
-            <div className="col-md-6 mx-auto">
-              <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-                <InputField
-                  name="email"
-                  label="Email address"
-                  type="text"
-                  placeholder="Enter email"
-                  ref={this.inputRef}
-                />
-                <InputField
-                  name="password"
-                  label="Password"
-                  type="password"
-                  placeholder="Password"
-                />
-                <InputField
-                  name="passwordConfirm"
-                  label="Confirm Password"
-                  type="password"
-                  placeholder="Confirm Password"
-                />
-                {errorMessage}
-                <button type="submit" className="btn btn-primary float-right">
-                  Sign up!
-                </button>
-              </form>
-            </div>
+            <div className="col-md-6 mx-auto">{form}</div>
           </div>
         </div>
       </div>
@@ -72,6 +79,7 @@ class Signup extends Component {
 
 const mapStateToProps = state => {
   return {
+    loading: state.auth.loading,
     error: state.auth.error
   };
 };

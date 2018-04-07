@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions";
 import InputField from "../../components/UI/InputField";
 import { validate } from "../../utils/validate";
+import Spinner from "../../components/UI/Spinner";
 
 class Signin extends Component {
   componentDidMount() {
@@ -20,7 +21,6 @@ class Signin extends Component {
 
   render() {
     const { handleSubmit } = this.props;
-
     let errorMessage = null;
 
     if (this.props.error) {
@@ -31,32 +31,38 @@ class Signin extends Component {
       );
     }
 
+    let form = (
+      <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+        <InputField
+          name="email"
+          label="Email address"
+          type="text"
+          placeholder="Enter email"
+          ref={this.inputRef}
+        />
+        <InputField
+          name="password"
+          label="Password"
+          type="password"
+          placeholder="Password"
+        />
+        {errorMessage}
+        <button type="submit" className="btn btn-primary float-right">
+          Sign in
+        </button>
+      </form>
+    );
+
+    if (this.props.loading) {
+      form = <Spinner />;
+    }
+
     return (
       <div className="row">
         <div className="col-md-12">
           <h3 className="text-center mt-1">Sign in</h3>
           <div className="row">
-            <div className="col-md-6 mx-auto">
-              <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-                <InputField
-                  name="email"
-                  label="Email address"
-                  type="text"
-                  placeholder="Enter email"
-                  ref={this.inputRef}
-                />
-                <InputField
-                  name="password"
-                  label="Password"
-                  type="password"
-                  placeholder="Password"
-                />
-                {errorMessage}
-                <button type="submit" className="btn btn-primary float-right">
-                  Sign in
-                </button>
-              </form>
-            </div>
+            <div className="col-md-6 mx-auto">{form}</div>
           </div>
         </div>
       </div>
@@ -66,6 +72,7 @@ class Signin extends Component {
 
 const mapStateToProps = state => {
   return {
+    loading: state.auth.loading,
     error: state.auth.error
   };
 };

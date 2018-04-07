@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import * as actions from "../../store/actions";
+import Spinner from "../../components/UI/Spinner";
 
 class Signout extends Component {
   componentDidMount() {
@@ -9,9 +10,21 @@ class Signout extends Component {
   }
 
   render() {
-    return <h5 className="text-center mt-2">Sorry to see you go...</h5>;
+    let message = <h5 className="text-center mt-2">Sorry to see you go...</h5>;
+
+    if (this.props.loading) {
+      message = <Spinner />;
+    }
+
+    return message;
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    loading: state.auth.loading
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -21,4 +34,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(Signout);
+export default connect(mapStateToProps, mapDispatchToProps)(Signout);
