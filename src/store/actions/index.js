@@ -1,3 +1,7 @@
-export { signinUser, authCheckState } from "./signin";
-export { signupUser } from "./signup";
-export { signoutUser } from "./signout";
+export {
+  signinUser,
+  authCheckState,
+  signupUser,
+  resetAuthState,
+  signoutUser
+} from "./auth";

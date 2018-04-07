@@ -8,6 +8,7 @@ import { validate } from "../../utils/validate";
 
 class Signup extends Component {
   componentDidMount() {
+    this.props.onResetAuthState();
     this.inputRef.current.focus();
   }
 
@@ -79,6 +80,9 @@ const mapDispatchToProps = dispatch => {
   return {
     onSignupUser: (email, password) => {
       dispatch(actions.signupUser(email, password));
+    },
+    onResetAuthState: () => {
+      dispatch(actions.resetAuthState());
     }
   };
 };

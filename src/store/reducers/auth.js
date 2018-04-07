@@ -41,6 +41,8 @@ const reducer = (state = initialState, action) => {
         authenticated: false,
         error: action.error
       };
+    case actionTypes.RESET_AUTH_STATE:
+      return initialState;
     default:
       return state;
   }

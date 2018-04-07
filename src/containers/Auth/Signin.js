@@ -8,6 +8,7 @@ import { validate } from "../../utils/validate";
 
 class Signin extends Component {
   componentDidMount() {
+    this.props.onResetAuthState();
     this.inputRef.current.focus();
   }
 
@@ -73,6 +74,9 @@ const mapDispatchToProps = dispatch => {
   return {
     onSigninUser: (email, password) => {
       dispatch(actions.signinUser(email, password));
+    },
+    onResetAuthState: () => {
+      dispatch(actions.resetAuthState());
     }
   };
 };
